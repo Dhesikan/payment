@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jolly Travels</title>
+    <link rel="icon" href="JT.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Trirong"
+    />
+    <style>
+      body {
+        font-family: "Trirong", serif;
+        background: linear-gradient(
+          to right,
+          #0c7cb4,
+          #1c9bdb,
+          #3ca7dd,
+          #59abd4
+        );
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .logo {
+        position: absolute;
+        top: 50px;
+        left: 80px;
+        width: 250px; /* Adjust size as needed */
+        height: auto;
+        border: 5px solid #333; /* Solid border with color */
+        border-radius: 10px; /* Optional: to round the corners of the border */
+      }
+
+      .payment-container {
+        background: #ffffff;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 350px;
+      }
+
+      .payment-container h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        color: #555;
+        pointer-events: none; /* Makes it non-editable */
+      }
+
+      .btn-submit {
+        background-color: #1791c8;
+        color: white;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      .btn-submit:hover {
+        background-color: #1c9bdb;
+      }
+
+      .loading-spinner {
+        margin-top: 20px;
+        width: 40px;
+        height: 40px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        display: none;
+        margin: 20px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .confirmation {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #0c7cb4;
+        display: none; /* Initially hidden */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Shadow effect for success text */
+      }
+
+      .confirmation span {
+        display: inline-block;
+        font-weight: bold;
+        color: #0c7cb4;
+        font-size: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Stronger shadow effect for code */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Logo -->
+    <img src="JT.png" alt="Logo" class="logo" />
+
+    <div class="payment-container">
+      <h1>Complete Payment</h1>
+
+      <!-- Random Payment Amount Display -->
+      <div class="form-group">
+        <label for="amount">Amount to Pay</label>
+        <input type="text" id="amount" value="" readonly />
+      </div>
+
+      <!-- Simulated Payment Button -->
+      <button class="btn-submit" id="payButton" onclick="processPayment()">
+        Pay Now
+      </button>
+
+      <!-- Loading Spinner -->
+      <div class="loading-spinner" id="loadingSpinner"></div>
+
+      <!-- Success Message with Payment Code -->
+      <div class="confirmation" id="confirmation-message">
+        Payment Successful!<br /><br />
+        Your 5-digit code is:
+        <span id="payment-code"></span>
+      </div>
+    </div>
+
+    <script>
+      // Function to generate a random 5-digit code
+      function generateCode() {
+        return Math.floor(10000 + Math.random() * 90000).toString();
+      }
+
+      // Function to generate a random amount below 5000
+      function generateRandomAmount() {
+        return Math.floor(Math.random() * 5000) + 1;
+      }
+
+      // Set a random amount in the input field
+      const randomAmount = generateRandomAmount();
+      document.getElementById("amount").value = `₹ ${randomAmount}`; // Fixed template literal
+
+      // Function to process the payment (simulated here)
+      function processPayment() {
+        const amount = randomAmount;
+        const confirmationMessage = document.getElementById(
+          "confirmation-message"
+        );
+        const paymentCodeDisplay = document.getElementById("payment-code");
+        const payButton = document.getElementById("payButton");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+
+        // Reset display states
+        confirmationMessage.style.display = "none";
+
+        // Show loading spinner
+        loadingSpinner.style.display = "block";
+
+        // Disable the button
+        payButton.disabled = true;
+
+        // Simulate a delay
+        setTimeout(() => {
+          // Hide spinner and display success
+          loadingSpinner.style.display = "none";
+
+          const uniqueCode = generateCode();
+          paymentCodeDisplay.textContent = uniqueCode;
+
+          // Show confirmation message
+          confirmationMessage.style.display = "block";
+        }, 4000);
+      }
+      // Function to process the payment (simulated here)
+      function processPayment() {
+        const amount = randomAmount;
+        const confirmationMessage = document.getElementById(
+          "confirmation-message"
+        );
+        const paymentCodeDisplay = document.getElementById("payment-code");
+        const payButton = document.getElementById("payButton");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+
+        // Reset display states
+        confirmationMessage.style.display = "none";
+
+        // Show loading spinner
+        loadingSpinner.style.display = "block";
+
+        // Disable the button
+        payButton.disabled = true;
+
+        // Simulate a delay
+        setTimeout(() => {
+          // Hide spinner and display success
+          loadingSpinner.style.display = "none";
+
+          const uniqueCode = generateCode();
+          paymentCodeDisplay.textContent = uniqueCode;
+
+          // Store the generated code in localStorage
+          localStorage.setItem("paymentCode", uniqueCode);
+
+          // Show confirmation message
+          confirmationMessage.style.display = "block";
+        }, 4000);
+      }
+    </script>
+  </body>
+</html>
